@@ -1,0 +1,21 @@
+name: Update Pairs
+on:
+  schedule:
+    - cron: "0 6 * * *"  # every day 6 AM UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scripts/update_pairs.py
+      - run: |
+          git config user.name "PairsBot"
+          git config user.email "pairsbot@users.noreply.github.com"
+          git add public/pairs.json
+          git commit -m "auto: update full pairs dump" || echo "no changes"
+          git push
