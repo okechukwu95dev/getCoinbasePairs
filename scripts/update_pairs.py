@@ -1,6 +1,6 @@
 import json, os, urllib.request
 
-URL = "https://api.exchange.coinbase.com/products"
+URL = "https://api.coinbase.com/api/v3/brokerage/market/products"
 OUT = os.path.join(os.getcwd(), "public", "pairs.json")
 
 print("Fetching Coinbase products...")
