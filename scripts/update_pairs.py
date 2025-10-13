@@ -4,7 +4,13 @@ URL = "https://api.exchange.coinbase.com/products"
 OUT = os.path.join(os.getcwd(), "public", "pairs.json")
 
 print("Fetching Coinbase products...")
-with urllib.request.urlopen(URL) as r:
+
+req = urllib.request.Request(
+    URL,
+    headers={"User-Agent": "Mozilla/5.0 (compatible; getCoinbasePairs/1.0)"}
+)
+
+with urllib.request.urlopen(req) as r:
     data = json.loads(r.read().decode())
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
